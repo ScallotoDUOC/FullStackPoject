@@ -14,5 +14,13 @@ public class AtributosController {
         return AtributosService.buscarPorIU(id)
     }
 
-    
+    @DeleteMapping("/{iu}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long IU) {
+        if (AtributosService.buscarPorIU(id).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        AtributosService.eliminar(id);
+        return ResponseEntity.noContent().build(); 
+    }
 }
+
