@@ -8,6 +8,11 @@ import AngelYMilton.FMDataAnalisis.Service.AtributosService;
 public class AtributosController {
 
     private final AtributosService atributosService;
+
+    @GetMapping("/{iu}")
+    public ResponseEntity<atributos> buscarPorIU(@PathVariable Long IU) {
+        return AtributosService.buscarPorIU(id)
+    }
+
     
-    @GetMapping
 }
