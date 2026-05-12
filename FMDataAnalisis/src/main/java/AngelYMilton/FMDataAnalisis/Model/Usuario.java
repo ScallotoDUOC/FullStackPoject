@@ -93,6 +93,14 @@ public class Usuario {
         this.rol = rol;
     }
 
+    public String getPartidaName() {
+        return PartidaName;
+    }
+
+    public void setPartidaName() {
+        
+    }
+
     public boolean isActivo() {
         return activo;
     }
