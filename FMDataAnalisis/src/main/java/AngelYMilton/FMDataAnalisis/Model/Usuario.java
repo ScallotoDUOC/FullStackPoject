@@ -4,33 +4,59 @@ package AngelYMilton.FMDataAnalisis.Model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-/**
- * Entidad de dominio Usuario
- *
- * Esta clase representa el modelo COMPLETO interno del usuario,
- * incluyendo datos sensibles como el password.
- *
- * NUNCA se debe retornar esta clase directamente al cliente.
- * Siempre usar UsuarioResponse que omite el password.
- *
- * En produccion con JPA, esta clase tendria anotaciones como:
- * @Entity
- * @Table(name = "usuarios")
- * Y los campos tendrian @Column, @Id, @GeneratedValue, etc.
- *
- * Aca usamos POJO simple porque almacenamos en ConcurrentHashMap.
- *
- * @author Prof. Sting Parra Silva
- */
-public class Usuario {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
+
+@Entity
+@Table(
+    name = "users",
+    indexes = {
+        @Index(name = "idx_User_id", columnList = "id")
+    }
+)
+
+@Getter
+@Setter
+public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
+    @Column(nullable = false)
     private String username;
+
+    @NotBlank
+    @Column(nullable = false)
     private String email;
+
+    @NotBlank
+    @Column(nullable = false)
     private String password;  // SENSIBLE - nunca debe salir en respuestas
+
+    @NotBlank
+    @Column(nullable = false)
     private String rol;       // USER, ADMIN, GUEST
+
+    @NotBlank
+    @Column(nullable = false)
     private String PartidaName;
+
+    @NotBlank
+    @Column(nullable = false)
     private boolean activo;
+
+    @NotBlank
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
     // Constructor vacio (requerido)
@@ -39,6 +65,7 @@ public class Usuario {
         this.createdAt = LocalDateTime.now();
     }
 
+    
     // Constructor con parametros (util para crear usuarios en repository)
     public Usuario(Long id, String username, String email, String password, String rol, String PartidaName) {
         this.id = id;
