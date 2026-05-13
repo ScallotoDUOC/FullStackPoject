@@ -11,7 +11,7 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // 🔴 Error general (Runtime)
+    //  Error general (Runtime)
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> handleRuntime(RuntimeException ex) {
 
@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-    // 🔴 Validaciones (@Valid)
+    // Validaciones (@Valid)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
 
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
-    // 🔴 Error inesperado (fallback)
+    //Error inesperado (fallback)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneral(Exception ex) {
 
@@ -50,5 +50,14 @@ public class GlobalExceptionHandler {
         response.put("error", ex.getMessage());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-}
+    }
+    @ExceptionHandler(InformacionPersonalNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleInformacionPersonalNotFound(
+            InformacionPersonalNotFoundException ex) {
+
+        Map<String, String> response = new HashMap<>();
+        response.put("error", ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
 }
