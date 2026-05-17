@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-
 public class JugadorDTO {
 
     @NotNull(message = "El IU no puede ser nulo")
@@ -21,7 +20,8 @@ public class JugadorDTO {
     private String lastName;
 
     // Constructor vacío
-    public JugadorDTO() {}
+    public JugadorDTO() {
+    }
 
     // Getters y Setters
     public Long getIu() {
